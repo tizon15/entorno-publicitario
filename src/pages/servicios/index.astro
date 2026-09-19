@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import ServiceCard from '@components/ServiceCard.astro';
+import { siteConfig } from '@config/site';
+
+// Only list services that actually exist as content (no dead links)
+const services = await getCollection('services');
+const sortedServices = services.sort((a: any, b: any) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const serviceCards = sortedServices.map((entry: any) => ({
+  title: entry.data.title.replace(' en Madrid', ''),
+  description: entry.data.description,
+  href: `/servicios/${entry.id}`,
+  // Fallback icon mapping by slug (keeps file names English, URLs Spanish)
+  icon: entry.id === 'tarjetas-visita' ? '📇' : '📄',
+}));
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Servicios de impresión',
+  description: 'Servicios de impresión de Entorno Publicitario en Madrid.',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: serviceCards.map((service: any, index: number) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: service.title,
+        description: service.description,
+        url: `${siteConfig.url}${service.href}`,
+        provider: { '@type': 'LocalBusiness', '@id': `${siteConfig.url}/#business` },
+      },
+    })),
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteConfig.url },
+      { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${siteConfig.url}/servicios` },
+    ],
+  },
+};
+---
+
+<BaseLayout
+  title="Servicios"
+  description="Servicios de impresión de Entorno Publicitario: tarjetas de visita y más. Calidad y rapidez en Madrid. Consulta todos los servicios disponibles."
+  structuredData={structuredData}
+>
+  <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Servicios' }]} />
+
+  <section class="section services-hero" aria-labelledby="services-title">
+    <div class="container">
+      <header class="section-header" style="margin-bottom:0;">
+        <p class="eyebrow" style="justify-content:center;">Impresión offset · Digital · Gran formato</p>
+        <h1 id="services-title">Servicios de impresión</h1>
+        <p class="section-description">Cubrimos cualquier necesidad de impresión: offset, digital y gran formato. Asesoramos en materiales, acabados y plazos.</p>
+      </header>
+    </div>
+  </section>
+
+  <section class="section services-list" aria-labelledby="list-title">
+    <div class="container">
+      <h2 id="list-title" class="visually-hidden">Listado de servicios</h2>
+      {serviceCards.length > 0 ? (
+        <div class="services-grid">
+          {serviceCards.map((service: any) => <ServiceCard {...service} />)}
+        </div>
+      ) : (
+        <p class="empty-state">Próximamente añadiremos más servicios. De momento, consulta nuestras <a href="/servicios/tarjetas-visita">tarjetas de visita</a> o <a href="/contacto">pide presupuesto</a>.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="section process-section" aria-labelledby="process-title">
+    <div class="container">
+      <header class="section-header"><h2 id="process-title">Cómo trabajamos</h2></header>
+      <ol class="process-steps">
+        <li class="process-step card"><span class="step-number">1</span><h3>Pides presupuesto</h3><p>Nos envías tu archivo o nos dices qué necesitas. Te respondemos con precio y plazos en &lt; 24h.</p></li>
+        <li class="process-step card"><span class="step-number">2</span><h3>Revisamos tus artes</h3><p>Comprobamos resolución, sangrados, modo color, fuentes. Gratis y sin compromiso.</p></li>
+        <li class="process-step card"><span class="step-number">3</span><h3>Aprobación y producción</h3><p>Te enviamos prueba digital. Tras tu ok, imprimimos en nuestro taller de Madrid.</p></li>
+        <li class="process-step card"><span class="step-number">4</span><h3>Entrega</h3><p>Recogida en taller o envío a toda España. Embalaje reforzado, tracking y seguro en pedidos &gt; 100€.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section cta-section" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-card" style="background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); color: var(--color-text);">
+        <div class="cta-copy">
+          <h2 id="cta-title" style="color: var(--color-text);">¿No encuentras lo que buscas?</h2>
+          <p style="color: var(--color-text-muted);">Hacemos trabajos a medida: packaging, etiquetas, señalética, merchandising... Cuéntanos tu proyecto.</p>
+        </div>
+        <div class="cta-actions" style="justify-content:center;">
+          <a href="/contacto" class="btn btn-primary btn-lg">Pedir presupuesto personalizado</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .services-hero { padding: var(--space-2xl) 0 var(--space-xl); background: var(--color-surface); border-bottom: 1px solid var(--color-border); text-align: center; }
+  .services-list { padding-top: var(--space-2xl); padding-bottom: var(--space-3xl); background: var(--color-background); }
+  .services-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
+  @media (min-width: 640px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
+  .empty-state { text-align: center; color: var(--color-text-muted); max-width: 60ch; margin: 0 auto; background: var(--color-surface); border: 1px solid var(--color-border); padding: var(--space-xl); border-radius: var(--radius-lg); }
+  .process-section { background: var(--color-surface); border-top: 1px solid var(--color-border); }
+  .process-steps { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; }
+  @media (min-width: 768px) { .process-steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .process-steps { grid-template-columns: repeat(4, 1fr); } }
+  .process-step { text-align: left; padding: var(--space-lg); background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .step-number { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: var(--color-primary); color: white; border-radius: 50%; font-weight: 700; font-size: 0.95rem; margin-bottom: var(--space-md); }
+  .process-step h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; margin-bottom: var(--space-sm); letter-spacing: -0.01em; }
+  .process-step p { color: var(--color-text-muted); font-size: 0.88rem; line-height: 1.6; margin: 0; }
+  .cta-section { background: var(--color-background); border-top: 1px solid var(--color-border); }
+  .cta-card { display: grid; gap: var(--space-lg); text-align: center; padding: clamp(1.5rem, 3vw, 2rem); border-radius: var(--radius-xl); max-width: 760px; margin: 0 auto; }
+  @media (min-width: 700px) { .cta-card { grid-template-columns: 1.2fr auto; text-align: left; align-items: center; } .cta-card .cta-actions { justify-content: flex-end; } }
+</style>

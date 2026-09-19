@@ -1,0 +1,15 @@
+{
+  "name": "Entorno Publicitario",
+  "url": "https://entornopublicitario.es",
+  "isPlaceholderData": true,
+  "telephone": "+34 910 000 000",
+  "email": "info@entornopublicitario.es",
+  "address": {
+    "street": "Calle de Ejemplo 123",
+    "postalCode": "28001",
+    "city": "Madrid",
+    "country": "ES"
+  },
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "description": "Imprenta en Madrid especializada en impresi\u00f3n digital, offset y gran formato. Tarjetas de visita, flyers, carteles, vinilos y rotulaci\u00f3n."
+}

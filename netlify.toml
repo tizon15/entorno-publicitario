@@ -1,0 +1,65 @@
+# Netlify configuration for Entorno Publicitario
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "pnpm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "12.3.4"
+
+# Forms - Netlify Forms detection
+# The contact form uses data-netlify="true" and will be auto-detected
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/sitemap*.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+# Redirects (examples - uncomment and adapt as needed)
+# [[redirects]]
+#   from = "/imprenta-madrid"
+#   to = "/"
+#   status = 301
+
+# [[redirects]]
+#   from = "/servicios/tarjetas"
+#   to = "/servicios/tarjetas-visita"
+#   status = 301
+
+# Custom 404 page (handled by Astro's 404.astro if created)

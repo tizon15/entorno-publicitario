@@ -1,0 +1,108 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { siteConfig } from '@config/site';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service: any) => ({
+    params: { slug: service.id },
+    props: { service },
+  }));
+}
+
+interface ServiceEntry {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    slug: string;
+    serviceType?: string;
+    specifications?: string[];
+    useCases?: string[];
+    order?: number;
+  };
+}
+
+const { service } = Astro.props as { service: ServiceEntry };
+const { Content } = await render(service as any);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.data.title,
+  description: service.data.description,
+  url: `${siteConfig.url}/servicios/${service.id}`,
+  provider: {
+    '@type': 'LocalBusiness',
+    '@id': `${siteConfig.url}/#business`,
+    name: siteConfig.name,
+  },
+  areaServed: { '@type': 'City', name: 'Madrid' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteConfig.url },
+      { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${siteConfig.url}/servicios` },
+      { '@type': 'ListItem', position: 3, name: service.data.title, item: `${siteConfig.url}/servicios/${service.id}` },
+    ],
+  },
+};
+---
+
+<BaseLayout
+  title={service.data.title}
+  description={service.data.description}
+  structuredData={structuredData}
+>
+  <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Servicios', href: '/servicios' }, { label: service.data.title }]} />
+
+  <article class="section service-detail" aria-labelledby="service-title">
+    <div class="container">
+      <header class="service-header">
+        <p class="eyebrow" style="justify-content:center;">Servicio · Madrid</p>
+        <h1 id="service-title">{service.data.title}</h1>
+        <p class="service-lead">{service.data.description}</p>
+      </header>
+      <div class="service-content"><Content /></div>
+      <footer class="service-footer">
+        <hr />
+        <div class="service-cta">
+          <h2>¿Necesitas este servicio?</h2>
+          <p>Te asesoramos sin compromiso. Presupuesto en menos de 24h.</p>
+          <div class="cta-actions">
+            <a href="/contacto" class="btn btn-primary btn-lg">Pedir presupuesto</a>
+            <a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`} class="btn btn-secondary btn-lg">Llamar: {siteConfig.telephone}</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .service-detail { padding-top: var(--space-xl); padding-bottom: var(--space-3xl); background: var(--color-background); }
+  .service-header { text-align: center; max-width: 700px; margin: 0 auto var(--space-2xl); display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+  .service-header h1 { text-wrap: balance; }
+  .service-lead { font-size: 1.05rem; color: var(--color-text-muted); line-height: 1.6; max-width: 60ch; }
+  .service-content { max-width: 760px; margin: 0 auto var(--space-2xl); line-height: 1.75; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: clamp(1.25rem, 3vw, 2rem); }
+  .service-content h2 { font-family: var(--font-sans); font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; margin-top: var(--space-2xl); margin-bottom: var(--space-sm); padding-top: var(--space-lg); border-top: 1px solid var(--color-border); }
+  .service-content h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+  .service-content h3 { margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-weight: 600; }
+  .service-content p { margin-bottom: var(--space-md); color: var(--color-text); font-size: 0.96rem; }
+  .service-content ul, .service-content ol { margin-bottom: var(--space-md); padding-left: var(--space-xl); }
+  .service-content li { margin-bottom: var(--space-sm); color: var(--color-text); font-size: 0.95rem; }
+  .service-content li::marker { color: var(--color-primary); }
+  .service-content strong { color: var(--color-text); }
+  .service-content a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+  .service-content a:hover { color: var(--color-primary-hover); }
+  .service-content img { border-radius: var(--radius-lg); margin: var(--space-xl) auto; box-shadow: var(--shadow-sm); border: 1px solid var(--color-border); }
+  .service-content blockquote { border-left: 3px solid var(--color-primary); padding: 0.75rem 0 0.75rem var(--space-lg); margin: var(--space-xl) 0; font-style: italic; color: var(--color-text-muted); background: var(--color-primary-soft); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+  .service-footer { max-width: 800px; margin: 0 auto; text-align: center; }
+  .service-cta { padding: var(--space-xl) var(--space-lg); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); margin-top: var(--space-xl); }
+  .service-cta h2 { font-family: var(--font-sans); font-size: 1.3rem; font-weight: 700; margin-bottom: var(--space-sm); letter-spacing: -0.02em; }
+  .service-cta p { color: var(--color-text-muted); margin-bottom: var(--space-lg); font-size: 0.92rem; }
+  .cta-actions { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+  @media (min-width: 480px) { .cta-actions { flex-direction: row; justify-content: center; } }
+</style>

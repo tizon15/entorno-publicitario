@@ -1,0 +1,317 @@
+---
+---
+
+<form class="contact-form" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+  <input type="hidden" name="form-name" value="contact" />
+  <input type="hidden" name="bot-field" class="bot-field" tabindex="-1" autocomplete="off" />
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="name" class="form-label">Nombre <span class="required" aria-hidden="true">*</span></label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="form-input"
+        required
+        autocomplete="name"
+        aria-required="true"
+        aria-describedby="name-error"
+      />
+      <span id="name-error" class="form-error" role="alert">Por favor, introduce tu nombre</span>
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="form-label">Email <span class="required" aria-hidden="true">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-input"
+        required
+        autocomplete="email"
+        aria-required="true"
+        aria-describedby="email-error"
+      />
+      <span id="email-error" class="form-error" role="alert">Por favor, introduce un email válido</span>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="phone" class="form-label">Teléfono</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        class="form-input"
+        autocomplete="tel"
+        aria-describedby="phone-error"
+        pattern="[0-9\s\+\-\(\)]{9,}"
+      />
+      <span id="phone-error" class="form-error" role="alert">Por favor, introduce un teléfono válido</span>
+    </div>
+
+    <div class="form-group">
+      <label for="company" class="form-label">Empresa</label>
+      <input
+        type="text"
+        id="company"
+        name="company"
+        class="form-input"
+        autocomplete="organization"
+        aria-describedby="company-error"
+      />
+      <span id="company-error" class="form-error" role="alert"></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="message" class="form-label">Mensaje <span class="required" aria-hidden="true">*</span></label>
+    <textarea
+      id="message"
+      name="message"
+      class="form-textarea"
+      rows="5"
+      required
+      aria-required="true"
+      aria-describedby="message-error"
+      placeholder="Cuéntanos qué necesitas..."
+    ></textarea>
+    <span id="message-error" class="form-error" role="alert">Por favor, escribe tu mensaje</span>
+  </div>
+
+  <div class="form-group form-consent">
+    <label class="consent-label">
+      <input type="checkbox" name="consent" required aria-required="true" aria-describedby="consent-error" />
+      <span>He leído y acepto la <a href="/politica-privacidad" target="_blank">política de privacidad</a> y el tratamiento de mis datos para responder a esta solicitud. <span class="required" aria-hidden="true">*</span></span>
+    </label>
+    <span id="consent-error" class="form-error" role="alert">Debes aceptar la política de privacidad</span>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary btn-submit">
+      <span class="btn-text">Enviar mensaje</span>
+      <span class="btn-loading" hidden>Enviando...</span>
+    </button>
+    <p class="form-note">Nos pondremos en contacto contigo en menos de 24 horas laborables.</p>
+  </div>
+
+  <div class="form-success" hidden role="status" aria-live="polite">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+    <p>¡Gracias! Tu mensaje ha sido enviado correctamente. Te responderemos pronto.</p>
+  </div>
+
+  <div class="form-error-message" hidden role="alert" aria-live="assertive">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <line x1="15" y1="9" x2="9" y2="15" />
+      <line x1="9" y1="9" x2="15" y2="15" />
+    </svg>
+    <p>Ha ocurrido un error al enviar el formulario. Por favor, inténtalo de nuevo o llámanos por teléfono.</p>
+  </div>
+</form>
+
+<style>
+  .contact-form {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .required {
+    color: var(--color-primary);
+  }
+
+  .bot-field {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+  }
+
+  .form-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .btn-submit {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  @media (min-width: 480px) {
+    .form-actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit {
+      width: auto;
+    }
+  }
+
+  .btn-loading {
+    display: none;
+  }
+
+  .btn-submit:disabled .btn-text {
+    display: none;
+  }
+
+  .btn-submit:disabled .btn-loading {
+    display: inline;
+  }
+
+  .form-note {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .form-success,
+  .form-error-message {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-lg);
+  }
+
+  .form-success svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .form-success p,
+  .form-error-message p {
+    margin: 0;
+  }
+
+  .form-consent { margin-top: var(--space-md); }
+  .consent-label { display: flex; gap: var(--space-sm); align-items: flex-start; font-size: 0.875rem; cursor: pointer; line-height: 1.5; color: var(--color-text-muted); }
+  .consent-label input { margin-top: 0.25rem; flex-shrink: 0; accent-color: var(--color-primary); width: 16px; height: 16px; }
+  .consent-label a { text-decoration: underline; text-underline-offset: 2px; }
+</style>
+
+<script is:inline>
+  /** @type {HTMLFormElement | null} */
+  const form = document.querySelector('.contact-form');
+  /** @type {HTMLElement | null} */
+  const successMessage = form?.querySelector('.form-success');
+  /** @type {HTMLElement | null} */
+  const errorMessage = form?.querySelector('.form-error-message');
+  /** @type {HTMLButtonElement | null} */
+  const submitBtn = form?.querySelector('.btn-submit');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const botField = formData.get('bot-field');
+
+      if (botField) {
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+      }
+
+      if (errorMessage) errorMessage.hidden = true;
+      if (successMessage) successMessage.hidden = true;
+
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString(),
+        });
+
+        if (response.ok) {
+          form.reset();
+          if (successMessage) successMessage.hidden = false;
+          form.hidden = true;
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch {
+        if (errorMessage) errorMessage.hidden = false;
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+        }
+      }
+    });
+
+    /** @type {NodeListOf<HTMLInputElement | HTMLTextAreaElement>} */
+    const inputs = form.querySelectorAll('.form-input, .form-textarea');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('input', () => clearError(input));
+    });
+
+    /**
+     * @param {HTMLInputElement | HTMLTextAreaElement} input
+     * @returns {boolean}
+     */
+    function validateField(input) {
+      const group = input.closest('.form-group');
+      if (!group) return true;
+
+      let valid = true;
+
+      if (input.required && !input.value.trim()) {
+        valid = false;
+      }
+
+      if (input.type === 'email' && input.value.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input.value.trim())) {
+          valid = false;
+        }
+      }
+
+      if (input.type === 'tel' && input.value.trim()) {
+        const phoneRegex = /^[\d\s\+\-\(\)]{9,}$/;
+        if (!phoneRegex.test(input.value.trim())) {
+          valid = false;
+        }
+      }
+
+      group.classList.toggle('has-error', !valid);
+      return valid;
+    }
+
+    /**
+     * @param {HTMLInputElement | HTMLTextAreaElement} input
+     */
+    function clearError(input) {
+      const group = input.closest('.form-group');
+      if (group) {
+        group.classList.remove('has-error');
+      }
+    }
+  }
+</script>

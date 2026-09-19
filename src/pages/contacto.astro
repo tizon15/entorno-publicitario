@@ -1,0 +1,100 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import ContactForm from '@components/ContactForm.astro';
+import { siteConfig } from '@config/site';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  mainEntity: {
+    '@type': 'LocalBusiness',
+    '@id': `${siteConfig.url}/#business`,
+    name: siteConfig.name,
+    url: siteConfig.url,
+    telephone: siteConfig.telephone,
+    email: siteConfig.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: siteConfig.address.street,
+      postalCode: siteConfig.address.postalCode,
+      addressLocality: siteConfig.address.city,
+      addressCountry: siteConfig.address.country,
+    },
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteConfig.url },
+      { '@type': 'ListItem', position: 2, name: 'Contacto', item: `${siteConfig.url}/contacto` },
+    ],
+  },
+};
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Contacta con Entorno Publicitario: imprenta en Madrid. Pide presupuesto sin compromiso, llámanos o visítanos en nuestro taller. Respuesta en menos de 24h."
+  structuredData={structuredData}
+>
+  <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Contacto' }]} />
+
+  <section class="section contact-hero" aria-labelledby="contact-title">
+    <div class="container">
+      <header class="section-header" style="margin-bottom:0;">
+        <p class="eyebrow" style="justify-content:center;">Respuesta en &lt; 24h laborables</p>
+        <h1 id="contact-title">Contacto</h1>
+        <p class="section-description">Cuéntanos qué necesitas y te respondemos en menos de 24 horas laborables</p>
+      </header>
+    </div>
+  </section>
+
+  <section class="section contact-main" aria-labelledby="form-title">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-form-wrapper">
+          <h2 id="form-title" class="visually-hidden">Formulario de contacto</h2>
+          <ContactForm />
+        </div>
+        <aside class="contact-info" aria-labelledby="info-title">
+          <h2 id="info-title">Otras formas de contactar</h2>
+          <div class="info-item"><div class="info-icon" aria-hidden="true">📞</div><div><h3>Llámanos</h3><p><a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`}>{siteConfig.telephone}</a></p><p class="info-note">Horario: {siteConfig.openingHours}</p></div></div>
+          <div class="info-item"><div class="info-icon" aria-hidden="true">✉️</div><div><h3>Escríbenos</h3><p><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p><p class="info-note">Respondemos en &lt; 24h laborables</p></div></div>
+          <div class="info-item"><div class="info-icon" aria-hidden="true">📍</div><div><h3>Visítanos</h3><address>{siteConfig.address.street}<br />{siteConfig.address.postalCode} {siteConfig.address.city}, {siteConfig.address.country}</address><p class="info-note">Metro: [Estación más cercana - Pendiente]</p></div></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section map-section" aria-labelledby="map-title">
+    <div class="container">
+      <h2 id="map-title" class="visually-hidden">Ubicación en el mapa</h2>
+      <div class="map-placeholder" role="img" aria-label="Mapa de ubicación de Entorno Publicitario en Madrid">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+        <p>{siteConfig.name}</p><p>{siteConfig.address.street}, {siteConfig.address.postalCode} {siteConfig.address.city}</p>
+        <a href={`https://maps.google.com/?q=${encodeURIComponent(`${siteConfig.address.street}, ${siteConfig.address.postalCode} ${siteConfig.address.city}, ${siteConfig.address.country}`)}`} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Abrir en Google Maps</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-hero { padding: var(--space-2xl) 0 var(--space-xl); background: var(--color-surface); border-bottom: 1px solid var(--color-border); text-align: center; }
+  .contact-main { padding-top: var(--space-2xl); padding-bottom: var(--space-3xl); background: var(--color-background); }
+  .contact-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  @media (min-width: 1024px) { .contact-grid { grid-template-columns: 1.15fr 0.85fr; align-items: start; gap: var(--space-2xl); } }
+  .contact-info { display: flex; flex-direction: column; gap: var(--space-md); }
+  .contact-info h2 { font-family: var(--font-sans); font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: var(--space-sm); }
+  .info-item { display: flex; gap: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); align-items: flex-start; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); }
+  .info-item:hover { border-color: var(--color-border-strong); box-shadow: var(--shadow-sm); }
+  .info-icon { font-size: 1.25rem; flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--color-primary-light); border-radius: 10px; }
+  .info-item h3 { font-size: 0.95rem; margin: 0 0 0.2rem; }
+  .info-item p { margin: 0; color: var(--color-text); font-size: 0.92rem; }
+  .info-item a { color: var(--color-primary); font-weight: 600; }
+  .info-note { font-size: 0.8rem; color: var(--color-text-muted) !important; margin-top: 0.25rem !important; }
+  .info-item address { font-style: normal; line-height: 1.5; margin: 0; font-size: 0.92rem; color: var(--color-text); }
+  .map-section { background: var(--color-surface); border-top: 1px solid var(--color-border); }
+  .map-placeholder { aspect-ratio: 16/9; background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-lg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-sm); text-align: center; color: var(--color-text-muted); padding: var(--space-xl); }
+  .map-placeholder svg { color: var(--color-primary); opacity: 0.35; }
+  .map-placeholder p { margin: 0; font-size: 0.9rem; }
+</style>

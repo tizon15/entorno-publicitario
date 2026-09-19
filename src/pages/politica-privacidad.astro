@@ -1,0 +1,63 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { siteConfig } from '@config/site';
+
+const lastUpdated = '19 de septiembre de 2026';
+---
+
+<BaseLayout
+  title="Política de privacidad"
+  description="Política de privacidad de Entorno Publicitario: cómo tratamos tus datos personales, base legal, conservación y derechos RGPD."
+>
+  <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Política de privacidad' }]} />
+
+  <article class="section legal-page" aria-labelledby="privacy-title">
+    <div class="container legal-content">
+      <header>
+        <h1 id="privacy-title">Política de privacidad</h1>
+        <p class="legal-meta">Última actualización: {lastUpdated} — <strong>[PENDIENTE DE REVISIÓN LEGAL]</strong></p>
+        <p class="legal-notice">Este es un texto base provisional. Debe ser revisado por un profesional legal antes del lanzamiento con datos reales de la empresa.</p>
+      </header>
+
+      <h2>1. Responsable del tratamiento</h2>
+      <p><strong>{siteConfig.name}</strong> — {siteConfig.address.street}, {siteConfig.address.postalCode} {siteConfig.address.city} — <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a> — <a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`}>{siteConfig.telephone}</a></p>
+      <p>[Razón social y CIF — Pendiente]</p>
+
+      <h2>2. Datos que recogemos</h2>
+      <p>A través del formulario de contacto: nombre, email, teléfono (opcional), empresa (opcional) y mensaje. No recogemos categorías especiales de datos.</p>
+
+      <h2>3. Finalidad y base legal</h2>
+      <p>Responder a tu solicitud de presupuesto o información. Base legal: consentimiento (art. 6.1.a RGPD) otorgado al marcar la casilla de aceptación.</p>
+
+      <h2>4. Destinatarios y encargados</h2>
+      <p>El formulario se procesa vía <strong>Netlify Forms</strong> (Netlify, Inc., EE. UU. — acogido a DPF). Consulta su <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">política de privacidad</a>. No cedemos datos a terceros salvo obligación legal.</p>
+
+      <h2>5. Conservación</h2>
+      <p>Conservamos tu solicitud el tiempo necesario para gestionarla y, si se convierte en relación comercial, durante la relación y plazos legales. Solicitudes sin relación: máximo 12 meses.</p>
+
+      <h2>6. Derechos</h2>
+      <p>Puedes ejercer acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>. También puedes reclamar ante la AEPD (www.aepd.es).</p>
+
+      <h2>7. Seguridad</h2>
+      <p>Aplicamos medidas técnicas y organizativas adecuadas (TLS, honeypot anti-spam, validación, minimización).</p>
+
+      <h2>8. Contacto</h2>
+      <p>Para cualquier cuestión sobre privacidad: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a> o <a href="/contacto">formulario de contacto</a>.</p>
+
+      <hr />
+      <p><a href="/contacto" class="btn btn-primary">Volver a contacto</a></p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .legal-page { padding-top: var(--space-xl); padding-bottom: var(--space-3xl); background: var(--color-background); }
+  .legal-content { max-width: 760px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: clamp(1.25rem, 3vw, 2rem); }
+  .legal-content h1 { margin-bottom: var(--space-sm); font-size: clamp(1.6rem, 3vw, 2rem); }
+  .legal-meta { color: var(--color-text-muted); font-size: 0.82rem; margin-bottom: var(--space-sm); }
+  .legal-notice { background: #fffbeb; border: 1px solid #f59e0b; padding: var(--space-md); border-radius: var(--radius-md); font-size: 0.85rem; line-height: 1.5; color: #92400e; }
+  .legal-content h2 { margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-family: var(--font-sans); font-size: 1.1rem; font-weight: 700; letter-spacing: -0.015em; }
+  .legal-content p { margin-bottom: var(--space-md); line-height: 1.7; font-size: 0.95rem; color: var(--color-text); }
+  .legal-content a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+</style>

@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { siteConfig } from '@config/site';
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="La página que buscas no existe. Entorno Publicitario - Imprenta en Madrid."
+>
+  <main class="error-page" role="main">
+    <div class="container">
+      <div class="error-content">
+        <h1>404</h1>
+        <h2>Página no encontrada</h2>
+        <p>Lo sentimos, la página que buscas no existe o ha sido movida.</p>
+        <nav aria-label="Navegación de error">
+          <ul class="error-links">
+            <li><a href="/">← Volver al inicio</a></li>
+            <li><a href="/servicios">Ver nuestros servicios</a></li>
+            <li><a href="/contacto">Contactar con nosotros</a></li>
+          </ul>
+        </nav>
+        <address class="error-contact">
+          <p>¿Necesitas ayuda? Llámanos al <a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`}>{siteConfig.telephone}</a> o escríbenos a <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
+        </address>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: 62vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(2rem, 5vw, 3.5rem) 0;
+    background: var(--color-background);
+  }
+
+  .error-content {
+    text-align: center;
+    max-width: 440px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl) var(--space-xl);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .error-content h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 10vw, 5rem);
+    font-weight: 400;
+    color: var(--color-primary);
+    line-height: 1;
+    margin: 0 0 var(--space-sm);
+    letter-spacing: -0.04em;
+  }
+
+  .error-content h2 {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-sm);
+  }
+
+  .error-content > p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xl);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .error-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-xl);
+  }
+
+  .error-links a {
+    display: block;
+    padding: 0.75rem var(--space-md);
+    color: var(--color-text);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    transition: all var(--transition-fast);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .error-links a:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .error-contact {
+    font-style: normal;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-md);
+    margin-top: var(--space-md);
+  }
+
+  .error-contact a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .error-contact a:hover {
+    color: var(--color-primary-hover);
+  }
+</style>

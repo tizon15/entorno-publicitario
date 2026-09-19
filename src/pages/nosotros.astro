@@ -1,0 +1,119 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { siteConfig } from '@config/site';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  mainEntity: {
+    '@type': 'LocalBusiness',
+    '@id': `${siteConfig.url}/#business`,
+    name: siteConfig.name,
+    description: siteConfig.description,
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteConfig.url },
+      { '@type': 'ListItem', position: 2, name: 'Nosotros', item: `${siteConfig.url}/nosotros` },
+    ],
+  },
+};
+---
+
+<BaseLayout
+  title="Nosotros"
+  description="Conoce Entorno Publicitario: imprenta en Madrid con más de 20 años de experiencia. Calidad, rapidez y atención personalizada para empresas y particulares."
+  structuredData={structuredData}
+>
+  <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }]} />
+
+  <section class="section about-hero" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-hero-content">
+        <p class="eyebrow" style="justify-content:center; margin-bottom:1rem;">Desde 2004 · Madrid</p>
+        <h1 id="about-title">Más de 20 años<br />imprimiendo confianza</h1>
+        <p class="about-lead">
+          Somos una imprenta familiar ubicada en el centro de Madrid. Desde 2004 ayudamos a empresas, autónomos y particulares a materializar sus ideas en papel y gran formato.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-content" aria-labelledby="values-title">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <h2 id="values-title">Cómo trabajamos</h2>
+          <ul class="values-list">
+            <li><strong>Producción propia:</strong> No subcontratamos. Controlamos todo el proceso: preimpresión, impresión, acabado y envío.</li>
+            <li><strong>Asesoramiento real:</strong> Revisamos tus archivos gratis. Te avisamos si hay problemas de resolución, sangrados, modo color o fuentes antes de imprimir.</li>
+            <li><strong>Materiales de calidad:</strong> Trabajamos con papeles certificados FSC, tintas ecológicas y proveedores de confianza.</li>
+            <li><strong>Plazos claros:</strong> Te damos fecha de entrega al confirmar el pedido. Cumplimos.</li>
+            <li><strong>Atención personal:</strong> Hablas con personas, no con bots. El mismo comercial te atiende desde el presupuesto hasta la entrega.</li>
+          </ul>
+        </div>
+        <div class="about-image" aria-hidden="true">
+          <div class="image-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
+            <p>Foto del taller / maquinaria</p><span class="placeholder-note">[Imagen real del taller]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-details" aria-labelledby="details-title">
+    <div class="container">
+      <header class="section-header"><h2 id="details-title">Datos de la empresa</h2></header>
+      <dl class="details-grid">
+        <div><dt>Razón social</dt><dd>[Razón social completa - Pendiente]</dd></div>
+        <div><dt>CIF/NIF</dt><dd>[CIF/NIF - Pendiente]</dd></div>
+        <div><dt>Dirección</dt><dd>{siteConfig.address.street}, {siteConfig.address.postalCode} {siteConfig.address.city}</dd></div>
+        <div><dt>Teléfono</dt><dd><a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`}>{siteConfig.telephone}</a></dd></div>
+        <div><dt>Email</dt><dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd></div>
+        <div><dt>Horario</dt><dd>{siteConfig.openingHours}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section cta-section" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-card card">
+        <h2 id="cta-title">¿Quieres visitarnos?</h2>
+        <p>Estamos en el centro de Madrid. Pásate a conocernos, ver muestras y tomar un café.</p>
+        <a href="/contacto" class="btn btn-primary">Ver ubicación y contacto</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero { padding: clamp(2rem, 5vw, 3.5rem) 0; text-align: center; background: var(--color-surface); border-bottom: 1px solid var(--color-border); }
+  .about-hero h1 { text-wrap: balance; }
+  .about-lead { font-size: 1.05rem; color: var(--color-text-muted); max-width: 62ch; margin: var(--space-md) auto 0; line-height: 1.65; }
+  .about-content { background: var(--color-background); }
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: start; }
+  @media (min-width: 1024px) { .about-grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--space-3xl); } }
+  .about-text h2 { margin-bottom: var(--space-lg); }
+  .values-list { list-style: none; padding: 0; margin: 0; }
+  .values-list li { padding: 1rem 0; border-bottom: 1px solid var(--color-border); line-height: 1.65; font-size: 0.95rem; color: var(--color-text-muted); }
+  .values-list li:last-child { border-bottom: none; }
+  .values-list strong { color: var(--color-text); font-weight: 600; }
+  .image-placeholder { aspect-ratio: 4/3; background: #eef1eb; border: 1px solid var(--color-border); border-radius: var(--radius-lg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-sm); color: var(--color-text-muted); padding: var(--space-xl); text-align: center; }
+  .image-placeholder svg { color: var(--color-primary); opacity: 0.5; }
+  .placeholder-note { font-size: 0.78rem; opacity: 0.7; color: var(--color-text-light); }
+  .about-details { background: var(--color-surface); border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+  .details-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
+  @media (min-width: 640px) { .details-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .details-grid { grid-template-columns: repeat(3, 1fr); } }
+  .details-grid > div { background: var(--color-background); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); }
+  .details-grid dt { font-weight: 700; color: var(--color-text-muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; }
+  .details-grid dd { margin: 0; color: var(--color-text); font-size: 0.92rem; line-height: 1.5; }
+  .details-grid a { color: var(--color-primary); }
+  .cta-section { background: var(--color-background); }
+  .cta-card { text-align: center; max-width: 620px; margin: 0 auto; background: var(--color-surface) !important; border: 1px solid var(--color-border) !important; box-shadow: var(--shadow-sm); }
+  .cta-card h2 { color: var(--color-text) !important; }
+  .cta-card p { color: var(--color-text-muted) !important; }
+</style>

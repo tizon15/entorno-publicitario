@@ -1,0 +1,15 @@
+# robots.txt for Entorno Publicitario
+# https://entornopublicitario.es/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://entornopublicitario.es/sitemap-index.xml
+
+# Disallow admin/private paths (none in static site)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Crawl-delay (optional, be respectful)
+# Crawl-delay: 10
