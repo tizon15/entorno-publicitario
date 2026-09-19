@@ -32,30 +32,55 @@ const { title, description, href, icon } = Astro.props;
     height: 100%;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: 13px 15px 14px 13px;
     overflow: hidden;
     transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+    position: relative;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    border-top: 1px solid rgba(29,33,30,0.12);
+    border-right: 1px solid rgba(29,33,30,0.12);
+    opacity: 0.0;
+    pointer-events: none;
   }
 
   .service-card:hover {
     border-color: var(--color-border-strong);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-paper);
   }
 
   @media (prefers-reduced-motion: no-preference) {
     .service-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-1px) rotate(0.12deg);
     }
   }
 
   .service-media {
     display: block;
     aspect-ratio: 16 / 10.2;
-    background: linear-gradient(180deg, #eef1eb 0%, #e6ebe3 100%);
+    background:
+      radial-gradient(ellipse 280px 120px at 18% 18%, rgba(255,255,255,0.55), transparent 58%),
+      linear-gradient(180deg, #eef1eb 0%, #e6ebe3 100%);
     border-bottom: 1px solid var(--color-border);
     position: relative;
     overflow: hidden;
     text-decoration: none;
+  }
+
+  .service-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    pointer-events: none;
   }
 
   .service-media-inner {
