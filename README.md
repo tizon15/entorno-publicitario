@@ -2,6 +2,8 @@
 
 Sitio web de una imprenta local en Madrid. Construido con Astro + TypeScript, optimizado para SEO local, Core Web Vitals y alojamiento en Netlify Free.
 
+> **Skeleton** generado con [Muse Spark 1.2](https://opencode.ai/docs) vía **opencode** (`opencode/muse-spark-1.2-contributor-free`).
+
 ## Características
 
 - **Astro 7** - Generador de sitios estáticos moderno
@@ -195,9 +197,14 @@ Cada página incluye:
 
 ## Tecnologías
 
-- [Astro](https://astro.build/) 7.3+
-- [TypeScript](https://www.typescriptlang.org/) 5.5+
-- [@astrojs/sitemap](https://github.com/withastro/astro/tree/main/packages/integrations/sitemap) 3.7+
+- [Astro](https://astro.build/) 7.3+ (`output: static`, `compressHTML`, `inlineStylesheets`)
+- [TypeScript](https://www.typescriptlang.org/) 5.5+ + [Astro Check](https://github.com/withastro/language-tools)
+- [pnpm](https://pnpm.io/) 12.3 + [Vite](https://vitejs.dev/) (polling WSL) + [ESLint](https://eslint.org/)
+- CSS nativo con custom properties — sin Tailwind
+- [Content Collections v2](https://docs.astro.build/en/guides/content-collections/) (glob loader) — `services`/`projects`
+- [@astrojs/sitemap](https://github.com/withastro/astro/tree/main/packages/integrations/sitemap) 3.7+ + JSON-LD (LocalBusiness/Service/BreadcrumbList)
+- [Netlify](https://www.netlify.com/) Free (Forms, headers `netlify.toml`, `robots.txt`) + [ngrok](https://ngrok.com/) preview
+- **Skeleton**: [Muse Spark 1.2](https://opencode.ai/docs) vía **opencode**
 
 ## Licencia
 

@@ -3,6 +3,7 @@
 ## Project
 - Astro + TypeScript website for a local printing company in Madrid; SEO-optimized.
 - Static site generated with Astro 7, deployed to Netlify Free.
+- **Skeleton**: built with [Muse Spark 1.2](https://opencode.ai/docs) via **opencode** (`opencode/muse-spark-1.2-contributor-free`).
 
 ## Commands
 ```bash
@@ -23,6 +24,7 @@ pnpm run lint     # ESLint on .astro and .ts files
 - **Typography**: System font stack (self-hosted font upgrade path documented)
 - **Images**: AVIF/WebP via Astro assets (when added), lazy loading, explicit dimensions
 - **Accessibility**: WCAG 2.2 AA target — skip links, focus-visible, semantic HTML, proper heading hierarchy, ARIA labels
+- **Tooling**: pnpm 12.3, TypeScript 5.5, ESLint, @astrojs/check, Vite (polling for WSL), Netlify, ngrok (preview)
 
 ## Key Files
 - `src/data/business.json` — Editable business data source of truth (JSON). **Edit with real data before launch.**
