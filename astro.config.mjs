@@ -16,6 +16,13 @@ try {
 const SITE_URL = 'https://entornopublicitario.es';
 
 export default defineConfig({
+  server: {
+    port: 4321,
+    host: true,
+    allowedHosts: [
+      'aracelis-unordinary-reed.ngrok-free.dev'
+    ]
+  },
   site: SITE_URL,
   output: 'static',
   integrations: [
@@ -31,6 +38,12 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   vite: {
+    server: {
+      watch: {
+        usePolling: true,
+        interval: 300,
+      },
+    },
     build: {
       cssMinify: true,
     },

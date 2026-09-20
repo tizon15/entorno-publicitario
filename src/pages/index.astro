@@ -1,17 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import ServiceCard from '@components/ServiceCard.astro';
-import { siteConfig } from '@config/site';
+import { getCollection } from 'astro:content'
+import BaseLayout from '@layouts/BaseLayout.astro'
+import ServiceCard from '@components/ServiceCard.astro'
+import { siteConfig } from '@config/site'
 
-const allServices = await getCollection('services');
-const sortedServices = allServices.sort((a: any, b: any) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const allServices = await getCollection('services')
+const sortedServices = allServices.sort((a: any, b: any) => (a.data.order ?? 99) - (b.data.order ?? 99))
 const services = sortedServices.map((entry: any) => ({
   title: entry.data.title.replace(' en Madrid', ''),
   description: entry.data.description,
   href: `/servicios/${entry.id}`,
-  icon: entry.id === 'tarjetas-visita' ? '📇' : '📄',
-}));
+  icon: entry.id === 'tarjetas-visita' ? '📇' : '📄'
+}))
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -26,149 +26,274 @@ const structuredData = {
     streetAddress: siteConfig.address.street,
     postalCode: siteConfig.address.postalCode,
     addressLocality: siteConfig.address.city,
-    addressCountry: siteConfig.address.country,
+    addressCountry: siteConfig.address.country
   },
   openingHoursSpecification: {
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     opens: '09:00',
-    closes: '18:00',
+    closes: '18:00'
   },
   priceRange: '€€',
-  description: siteConfig.description,
-};
+  description: siteConfig.description
+}
 ---
 
-<BaseLayout
-  title={siteConfig.name}
-  description={siteConfig.description}
-  structuredData={structuredData}
->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <p class="eyebrow hero-eyebrow">Imprenta en Madrid — desde 2004</p>
-        <h1 id="hero-title">
-          Impresión que<br />
-          <span class="hero-accent">deja huella.</span>
+<BaseLayout title={siteConfig.name} description={siteConfig.description} structuredData={structuredData}>
+  <section class='hero' aria-labelledby='hero-title'>
+    <div class='container hero-inner'>
+      <div class='hero-copy'>
+        <p class='eyebrow hero-eyebrow'>Imprenta en Madrid — desde 2004</p>
+        <h1 id='hero-title'>
+          Impresión que
+          <span class='hero-accent'>deja huella.</span>
         </h1>
-        <p class="hero-lead">
+        <p class='hero-lead'>
           Soluciones gráficas de autor para marcas exigentes.
           <span>{siteConfig.description}</span>
         </p>
-        <p class="hero-sub">
-          Atendemos a empresas, autónomos y particulares con rapidez, asesoramiento personalizado y materiales de primera calidad.
+        <p class='hero-sub'>
+          Atendemos a empresas, autónomos y particulares con rapidez, asesoramiento personalizado y materiales de
+          primera calidad.
         </p>
-        <div class="hero-actions">
-          <a href="/contacto" class="btn btn-primary btn-lg hero-primary">
+        <div class='hero-actions'>
+          <a href='/contacto' class='btn btn-primary btn-lg hero-primary'>
             Solicitar presupuesto
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <svg
+              width='16'
+              height='16'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              stroke-width='2'
+              aria-hidden='true'><path d='M5 12h14M12 5l7 7-7 7'></path></svg
+            >
           </a>
-          <a href="/servicios" class="btn btn-secondary btn-lg">Explora nuestra calidad</a>
+          <a href='/servicios' class='btn btn-secondary btn-lg'>Explora nuestra calidad</a>
         </div>
-        <ul class="hero-trust" aria-label="Garantías">
+        <ul class='hero-trust' aria-label='Garantías'>
           <li>Entrega 24–48h</li>
           <li>Asesoramiento gratis</li>
           <li>Revisión de artes gratis</li>
           <li>Envío a toda España</li>
         </ul>
-        <p class="hero-note" aria-hidden="true">— muestras y pruebas en taller · papel 350g · tintas vegetal</p>
+        <p class='hero-note' aria-hidden='true'>— muestras y pruebas en taller · papel 350g · tintas vegetal</p>
       </div>
 
-      <div class="hero-media" role="img" aria-label="Mesa de trabajo con papeles, tarjetas y pruebas de color">
-        <div class="hero-media-inner">
-          <div class="color-bar" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-          <div class="media-stack" aria-hidden="true">
-            <div class="media-card media-card--back"></div>
-            <div class="media-card media-card--front">
-              <span class="media-label">01 · Papelería</span>
-              <span class="media-title">Entorno<br/>Publicitario</span>
-              <span class="media-meta">Offset · 350g · FSC · Madrid</span>
+      <div class='hero-media' role='img' aria-label='Mesa de trabajo con papeles, tarjetas y pruebas de color'>
+        <div class='hero-media-inner'>
+          <div class='color-bar' aria-hidden='true'><span></span><span></span><span></span><span></span></div>
+          <div class='media-stack' aria-hidden='true'>
+            <div class='media-card media-card--back'></div>
+            <div class='media-card media-card--front'>
+              <span class='media-label'>01 · Papelería</span>
+              <span class='media-title'>Entorno<br />Publicitario</span>
+              <span class='media-meta'>Offset · 350g · FSC · Madrid</span>
             </div>
-            <div class="media-card media-card--small">
+            <div class='media-card media-card--small'>
               <span>Tarjetas 85×55</span>
             </div>
-            <div class="media-card media-card--tiny"></div>
-            <div class="tape" aria-hidden="true"></div>
+            <div class='media-card media-card--tiny'></div>
+            <div class='tape' aria-hidden='true'></div>
           </div>
-          <p class="media-caption">Plaza para fotografía real — mesa de taller con pruebas impresas</p>
+          <p class='media-caption'>Plaza para fotografía real — mesa de taller con pruebas impresas</p>
         </div>
-        <div class="marginalia" aria-hidden="true">TALLER PROPIO — MADRID · PRUEBA FÍSICA</div>
+        <div class='marginalia' aria-hidden='true'>TALLER PROPIO — MADRID · PRUEBA FÍSICA</div>
       </div>
     </div>
   </section>
 
-  <section class="section services-section" aria-labelledby="services-title">
-    <div class="container">
-      <header class="section-header">
-        <p class="eyebrow">Qué hacemos</p>
-        <h2 id="services-title">Nuestros servicios</h2>
-        <p class="section-description">Todo lo que necesitas para comunicar tu marca en papel y gran formato — con acabados que se notan al tacto.</p>
+  <section class='section services-section' aria-labelledby='services-title'>
+    <div class='container'>
+      <header class='section-header'>
+        <p class='eyebrow'>Qué hacemos</p>
+        <h2 id='services-title'>Nuestros servicios</h2>
+        <p class='section-description'>
+          Todo lo que necesitas para comunicar tu marca en papel y gran formato — con acabados que se notan al tacto.
+        </p>
       </header>
 
-      <div class="services-grid">
+      <div class='services-grid'>
         {services.map((service: any) => <ServiceCard {...service} />)}
       </div>
 
-      <div class="section-cta">
-        <a href="/servicios" class="btn btn-secondary">Ver todos los servicios</a>
+      <div class='section-cta'>
+        <a href='/servicios' class='btn btn-secondary'>Ver todos los servicios</a>
       </div>
     </div>
   </section>
 
-  <section class="section why-section" aria-labelledby="why-title">
-    <div class="container">
-      <header class="section-header">
-        <p class="eyebrow">Por qué elegirnos</p>
-        <h2 id="why-title">Artesanía, control y trato cercano</h2>
-        <p class="section-description">Más de 20 años afinando cada detalle, del archivo a la entrega.</p>
+  <!-- <section class='section work-section' aria-labelledby='work-title'>
+    <div class='container'>
+      <header class='section-header'>
+        <p class='eyebrow'>Nuestros trabajos</p>
+        <h2 id='work-title'>Productos que dejan huella</h2>
+        <p class='section-description'>
+          Una muestra real de lo que imprimimos cada día en nuestro taller de Madrid — del detalle más pequeño al gran
+          formato.
+        </p>
       </header>
 
-      <div class="why-grid">
-        <article class="why-item">
-          <div class="why-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      <div class='work-grid'>
+        <article class='work-item'>
+          <div class='work-media work-media--kraft' aria-hidden='true'><span>Tarjetas 85×55</span></div>
+          <h3>Tarjetas de visita</h3>
+          <p>350–400g, laminado mate/brillo, barniz selectivo y cantos pintados.</p>
+          <span class='work-tag'>Offset · Digital</span>
+        </article>
+        <article class='work-item'>
+          <div class='work-media work-media--mint' aria-hidden='true'><span>Flyers A5 / A6</span></div>
+          <h3>Flyers y folletos</h3>
+          <p>Plegados, dípticos y trípticos para campañas que necesitan leerse.</p>
+          <span class='work-tag'>Plegado · 135–250g</span>
+        </article>
+        <article class='work-item'>
+          <div class='work-media work-media--white' aria-hidden='true'><span>Catálogo 16pp</span></div>
+          <h3>Catálogos y revistas</h3>
+          <p>Grapado, rústica y wire-o con papeles estucados y offset.</p>
+          <span class='work-tag'>Grapado · PUR</span>
+        </article>
+        <article class='work-item'>
+          <div class='work-media work-media--ink' aria-hidden='true'><span>Vinilo + lona</span></div>
+          <h3>Vinilos y gran formato</h3>
+          <p>Escaparates, lonas y cartelería exterior con tintas UV resistentes.</p>
+          <span class='work-tag'>Gran formato · UV</span>
+        </article>
+        <article class='work-item'>
+          <div class='work-media work-media--kraft2' aria-hidden='true'><span>Cartel 70×100</span></div>
+          <h3>Carteles</h3>
+          <p>Offset y digital hasta 70×100, papeles verjurados y kraft.</p>
+          <span class='work-tag'>70×100 · 150g</span>
+        </article>
+        <article class='work-item'>
+          <div class='work-media work-media--paper' aria-hidden='true'><span>Packaging</span></div>
+          <h3>Carpetas y packaging</h3>
+          <p>Carpetas, cajas y estuches con troquel y acabados soft-touch.</p>
+          <span class='work-tag'>Troquel · Soft-touch</span>
+        </article>
+      </div>
+      <p class='work-note'>
+        Fotos reales de taller en camino — maquetas honestas hasta entonces. <a href='/servicios'
+          >Ver servicios disponibles →</a>
+      </p>
+    </div>
+  </section> -->
+
+  <section class='section intro-section' aria-labelledby='intro-title'>
+    <div class='container intro-inner'>
+      <div class='intro-copy'>
+        <p class='eyebrow'>Quiénes somos</p>
+        <h2 id='intro-title'>Taller propio,<br /> trato directo.</h2>
+        <p class='intro-lead'>Más de 20 años imprimiendo en Madrid. Sin intermediarios: tú hablas con quien imprime.</p>
+        <p class='intro-text'>
+          Somos un equipo pequeño que cuida cada archivo como si fuera propio — revisamos sangrados, color y tipografías
+          gratis antes de cada tirada. Papel 350g, tintas vegetales y pruebas físicas cuando el proyecto lo pide.
+        </p>
+        <ul class='intro-list' aria-label='Compromisos'>
+          <li><span class='intro-dot' aria-hidden='true'></span>Asesoramiento en papeles y acabados</li>
+          <li><span class='intro-dot' aria-hidden='true'></span>Prueba digital incluida · FSC disponible</li>
+          <li><span class='intro-dot' aria-hidden='true'></span>Entrega 24–48h en producción propia</li>
+        </ul>
+        <div class='intro-actions'>
+          <a href='/nosotros' class='btn btn-primary'>Conoce el taller</a>
+          <a href='/contacto' class='btn btn-secondary'>Habla con nosotros</a>
+        </div>
+      </div>
+      <div class='intro-media' role='img' aria-label='Taller de impresión con papeles y pruebas'>
+        <div class='intro-media-card'>
+          <div class='intro-media-top' aria-hidden='true'></div>
+          <div class='intro-media-stack' aria-hidden='true'>
+            <div class='intro-paper intro-paper--back'></div>
+            <div class='intro-paper intro-paper--front'>
+              <span class='intro-paper-label'>Taller · Madrid</span>
+              <span class='intro-paper-title'>Entorno<br />Publicitario</span>
+              <span class='intro-paper-meta'>Est. 2004 · Papel 350g · Tintas vegetal</span>
+            </div>
+          </div>
+          <p class='intro-caption'>Plaza para fotografía real — equipo y mesa de pruebas</p>
+        </div>
+        <span class='intro-marginalia' aria-hidden='true'>OFICIO · CERCANÍA · CONTROL</span>
+      </div>
+    </div>
+  </section>
+
+ <!--  <section class='section why-section' aria-labelledby='why-title'>
+    <div class='container'>
+      <header class='section-header'>
+        <p class='eyebrow'>Por qué elegirnos</p>
+        <h2 id='why-title'>Artesanía, control y trato cercano</h2>
+        <p class='section-description'>Más de 20 años afinando cada detalle, del archivo a la entrega.</p>
+      </header>
+
+      <div class='why-grid'>
+        <article class='why-item'>
+          <div class='why-icon' aria-hidden='true'>
+            <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7'
+              ><circle cx='12' cy='12' r='10'></circle><path d='M12 8v4l3 3'></path></svg
+            >
           </div>
           <h3>Asesoramiento experto</h3>
           <p>Te guiamos en materiales, acabados y formatos para que el resultado supere lo que imaginaste.</p>
         </article>
-        <article class="why-item">
-          <div class="why-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <article class='why-item'>
+          <div class='why-icon' aria-hidden='true'>
+            <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7'
+              ><path d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'></path></svg
+            >
           </div>
           <h3>Rapidez real</h3>
           <p>Producción propia en Madrid. Tiradas urgentes en 24h. Sin intermediarios ni esperas innecesarias.</p>
         </article>
-        <article class="why-item">
-          <div class="why-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M21 21l-3.5-3.5"/></svg>
+        <article class='why-item'>
+          <div class='why-icon' aria-hidden='true'>
+            <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7'
+              ><circle cx='11' cy='11' r='7'></circle><path d='M21 21l-3.5-3.5'></path></svg
+            >
           </div>
           <h3>Revisión de artes gratis</h3>
           <p>Verificamos resolución, sangrados, color y fuentes antes de imprimir. Cero sorpresas.</p>
         </article>
-        <article class="why-item">
-          <div class="why-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+        <article class='why-item'>
+          <div class='why-icon' aria-hidden='true'>
+            <svg width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.7'
+              ><path
+                d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'
+              ></path><path d='M3.27 6.96L12 12.01l8.73-5.05'></path><path d='M12 22.08V12'></path></svg
+            >
           </div>
           <h3>Envío a toda España</h3>
           <p>Embalaje reforzado, tracking y seguro incluido en pedidos superiores a 100€.</p>
         </article>
       </div>
     </div>
-  </section>
+  </section> -->
 
-  <section class="section cta-section" aria-labelledby="cta-title">
-    <div class="container">
-      <div class="cta-card">
-        <div class="cta-copy">
-          <p class="eyebrow cta-eyebrow">Da el siguiente paso</p>
-          <h2 id="cta-title">¿Tienes un proyecto en mente?</h2>
-          <p>Cuéntanos qué necesitas y te enviamos presupuesto sin compromiso en menos de 24h. Respuesta humana, no automática.</p>
+  <section class='section cta-section' aria-labelledby='cta-title'>
+    <div class='container'>
+      <div class='cta-card'>
+        <div class='cta-copy'>
+          <p class='eyebrow cta-eyebrow'>Da el siguiente paso</p>
+          <h2 id='cta-title'>¿Tienes un proyecto en mente?</h2>
+          <p>
+            Cuéntanos qué necesitas y te enviamos presupuesto sin compromiso en menos de 24h. Respuesta humana, no
+            automática.
+          </p>
         </div>
-        <div class="cta-actions">
-          <a href="/contacto" class="btn btn-primary btn-lg">Pedir presupuesto</a>
-          <a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`} class="btn btn-secondary btn-lg cta-tel">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div class='cta-actions'>
+          <a href='/contacto' class='btn btn-primary btn-lg'>Pedir presupuesto</a>
+          <a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`} class='btn btn-secondary btn-lg cta-tel'>
+            <svg
+              width='18'
+              height='18'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='currentColor'
+              stroke-width='2'
+              aria-hidden='true'
+              ><path
+                d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'
+              ></path></svg
+            >
             {siteConfig.telephone}
           </a>
         </div>
@@ -238,10 +363,9 @@ const structuredData = {
     font-weight: 850;
     letter-spacing: -0.06em;
     font-size: clamp(2.8rem, 6.8vw, 4.9rem);
-  }
-
-  #hero-title br {
-    display: block;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .hero-accent {
@@ -255,7 +379,7 @@ const structuredData = {
     position: relative;
   }
 
-  .hero-accent::after {
+  /* .hero-accent::after {
     content: '';
     position: absolute;
     left: -0.04em;
@@ -265,7 +389,7 @@ const structuredData = {
     background: #e8e0c8;
     z-index: -1;
     opacity: 0.95;
-  }
+  } */
 
   .hero-lead {
     font-family: var(--font-display);
@@ -381,8 +505,8 @@ const structuredData = {
     right: 12px;
     width: 16px;
     height: 16px;
-    border-top: 1px solid rgba(18,20,18,0.22);
-    border-right: 1px solid rgba(18,20,18,0.22);
+    border-top: 1px solid rgba(18, 20, 18, 0.22);
+    border-right: 1px solid rgba(18, 20, 18, 0.22);
     opacity: 0.65;
   }
 
@@ -393,8 +517,8 @@ const structuredData = {
     left: 12px;
     width: 16px;
     height: 16px;
-    border-top: 1px solid rgba(18,20,18,0.18);
-    border-left: 1px solid rgba(18,20,18,0.18);
+    border-top: 1px solid rgba(18, 20, 18, 0.18);
+    border-left: 1px solid rgba(18, 20, 18, 0.18);
     opacity: 0.55;
   }
 
@@ -419,7 +543,9 @@ const structuredData = {
     position: absolute;
     background: var(--color-surface);
     border: 1px solid rgba(29, 33, 30, 0.09);
-    box-shadow: 0 14px 26px rgba(29, 33, 30, 0.11), 0 2px 8px rgba(29, 33, 30, 0.06);
+    box-shadow:
+      0 14px 26px rgba(29, 33, 30, 0.11),
+      0 2px 8px rgba(29, 33, 30, 0.06);
   }
 
   .media-card--back {
@@ -430,7 +556,7 @@ const structuredData = {
     background: #f5f1e8;
     transform: rotate(2.6deg);
     border-radius: 4px 8px 6px 10px;
-    border-color: rgba(154,106,46,0.12);
+    border-color: rgba(154, 106, 46, 0.12);
   }
 
   .media-card--front {
@@ -446,11 +572,11 @@ const structuredData = {
     background: #fdfbf7;
     z-index: 2;
     border-radius: 6px 10px 8px 6px;
-    border-bottom: 2px solid rgba(154,106,46,0.18);
+    border-bottom: 2px solid rgba(154, 106, 46, 0.18);
     box-shadow:
       0 18px 32px rgba(29, 33, 30, 0.13),
       0 2px 7px rgba(29, 33, 30, 0.07),
-      inset 0 1px 0 rgba(255,255,255,0.9);
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
 
   .media-label {
@@ -493,7 +619,7 @@ const structuredData = {
     background: #fff;
     z-index: 3;
     border-radius: 8px 5px 9px 7px;
-    border: 1px solid rgba(29,33,30,0.08);
+    border: 1px solid rgba(29, 33, 30, 0.08);
   }
 
   .media-card--tiny {
@@ -540,10 +666,18 @@ const structuredData = {
     height: 100%;
   }
 
-  .color-bar span:nth-child(1) { background: #00a9e0; }
-  .color-bar span:nth-child(2) { background: #e4007c; }
-  .color-bar span:nth-child(3) { background: #ffed00; }
-  .color-bar span:nth-child(4) { background: #1a2218; }
+  .color-bar span:nth-child(1) {
+    background: #00a9e0;
+  }
+  .color-bar span:nth-child(2) {
+    background: #e4007c;
+  }
+  .color-bar span:nth-child(3) {
+    background: #ffed00;
+  }
+  .color-bar span:nth-child(4) {
+    background: #1a2218;
+  }
 
   .tape {
     position: absolute;
@@ -551,10 +685,10 @@ const structuredData = {
     left: 50%;
     width: 72px;
     height: 18px;
-    background: rgba(255,255,255,0.72);
-    border: 1px solid rgba(18,20,18,0.08);
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(18, 20, 18, 0.08);
     transform: translateX(-50%) rotate(-1.2deg);
-    box-shadow: 0 1px 3px rgba(18,20,18,0.08);
+    box-shadow: 0 1px 3px rgba(18, 20, 18, 0.08);
     backdrop-filter: blur(2px);
   }
 
@@ -645,7 +779,7 @@ const structuredData = {
 
   @media (min-width: 1024px) {
     .services-grid {
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
 
     .services-grid > :nth-child(1) {
@@ -674,6 +808,307 @@ const structuredData = {
     margin-top: var(--space-xl);
     padding-left: 1rem;
     border-left: 2px solid transparent;
+  }
+
+  /* Work — product gallery, print-forward */
+  .work-section {
+    background: var(--color-background);
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .work-section .section-header {
+    text-align: left;
+    margin-left: 0;
+    max-width: 560px;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-accent-warm);
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  @media (min-width: 640px) {
+    .work-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .work-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .work-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px 14px 13px 12px;
+    overflow: hidden;
+    transition:
+      border-color var(--transition-normal),
+      transform var(--transition-normal),
+      box-shadow var(--transition-normal);
+  }
+  .work-item:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-paper);
+  }
+  .work-media {
+    aspect-ratio: 16 / 10.2;
+    display: grid;
+    place-items: center;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .work-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .work-media--kraft {
+    background: linear-gradient(180deg, #f5f1e8 0%, #ede8dc 100%);
+  }
+  .work-media--mint {
+    background: linear-gradient(180deg, #e8ece3 0%, #e0e6d8 100%);
+  }
+  .work-media--white {
+    background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+  }
+  .work-media--ink {
+    background: linear-gradient(180deg, #eef1eb 0%, #dde3d6 100%);
+  }
+  .work-media--kraft2 {
+    background: linear-gradient(180deg, #f2ede6 0%, #e8e0cc 100%);
+  }
+  .work-media--paper {
+    background: linear-gradient(180deg, #f5f2eb 0%, #eae6dc 100%);
+  }
+  .work-item h3 {
+    font-size: 0.98rem;
+    margin: 0.9rem 1rem 0.3rem;
+    line-height: 1.25;
+  }
+  .work-item p {
+    color: var(--color-text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin: 0 1rem 0.7rem;
+  }
+  .work-tag {
+    display: inline-flex;
+    margin: 0 1rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.22rem 0.42rem;
+    border-radius: 3px;
+    background: var(--color-background);
+  }
+  .work-note {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin-top: 1.1rem;
+    text-align: center;
+  }
+  .work-note a {
+    color: var(--color-primary);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+
+  /* Intro — self-introduction, 2-col editorial */
+  .intro-section {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .intro-inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .intro-inner {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 2.5rem;
+    }
+  }
+  .intro-copy {
+    max-width: 560px;
+  }
+  #intro-title {
+    margin: 0.6rem 0 0.8rem;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-size: clamp(1.7rem, 3.8vw, 2.4rem);
+  }
+  .intro-lead {
+    font-family: var(--font-display);
+    font-size: 1.08rem;
+    line-height: 1.45;
+    color: var(--color-text);
+    margin: 0 0 0.7rem;
+  }
+  .intro-text {
+    color: var(--color-text-muted);
+    font-size: 0.94rem;
+    line-height: 1.65;
+    margin: 0 0 1.1rem;
+  }
+  .intro-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .intro-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--color-text);
+  }
+  .intro-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary);
+    border-radius: 1px;
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+  .intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .intro-media {
+    position: relative;
+    background: #fff;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 23px, #f2f0e8 23px 24px),
+      linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+    border: 1px solid #d8d5cf;
+    border-radius: 4px;
+    aspect-ratio: 1.08;
+    min-height: 360px;
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    place-items: center;
+    padding: 1.2rem;
+    overflow: hidden;
+  }
+  .intro-media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .intro-media-card {
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  .intro-media-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    display: flex;
+    opacity: 0.95;
+  }
+  .intro-paper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.15;
+    display: grid;
+    place-items: center;
+  }
+  .intro-paper--back {
+    display: none;
+  }
+  .intro-paper--front {
+    width: 78%;
+    aspect-ratio: 0.95;
+    background: #fdfbf7;
+    border: 1px solid rgba(29, 33, 30, 0.09);
+    border-bottom: 2px solid rgba(154, 106, 46, 0.18);
+    border-radius: 6px 10px 8px 6px;
+    box-shadow: 0 14px 26px rgba(29, 33, 30, 0.11);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem 1rem 0.85rem;
+    transform: rotate(-0.9deg);
+  }
+  .intro-paper-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+  }
+  .intro-paper-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: var(--color-text);
+  }
+  .intro-paper-meta {
+    font-size: 0.66rem;
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.5rem;
+    margin-top: 0.4rem;
+  }
+  .intro-caption {
+    font-size: 0.72rem;
+    color: #5a6258;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(6px);
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(29, 33, 30, 0.06);
+    text-align: center;
+  }
+  .intro-marginalia {
+    position: absolute;
+    right: 6px;
+    bottom: 12px;
+    writing-mode: vertical-rl;
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    opacity: 0.6;
+    transform: rotate(180deg);
+  }
+  @media (max-width: 899px) {
+    .intro-media {
+      min-height: 300px;
+      order: -1;
+    }
   }
 
   /* Why — editorial proof, not SaaS feature pills */
@@ -711,14 +1146,27 @@ const structuredData = {
     border: 1px solid var(--color-border);
     border-radius: 13px 15px 14px 13px;
     padding: var(--space-lg);
-    transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+    transition:
+      border-color var(--transition-normal),
+      box-shadow var(--transition-normal),
+      transform var(--transition-normal);
     position: relative;
   }
 
-  .why-item:nth-child(1) { transform: rotate(0.08deg); }
-  .why-item:nth-child(2) { transform: rotate(-0.07deg); border-top: 2px solid rgba(154,106,46,0.13); }
-  .why-item:nth-child(3) { transform: rotate(0.11deg); }
-  .why-item:nth-child(4) { transform: rotate(-0.09deg); border-top: 2px solid rgba(61,74,54,0.13); }
+  .why-item:nth-child(1) {
+    transform: rotate(0.08deg);
+  }
+  .why-item:nth-child(2) {
+    transform: rotate(-0.07deg);
+    border-top: 2px solid rgba(154, 106, 46, 0.13);
+  }
+  .why-item:nth-child(3) {
+    transform: rotate(0.11deg);
+  }
+  .why-item:nth-child(4) {
+    transform: rotate(-0.09deg);
+    border-top: 2px solid rgba(61, 74, 54, 0.13);
+  }
 
   .why-item:hover {
     border-color: var(--color-border-strong);

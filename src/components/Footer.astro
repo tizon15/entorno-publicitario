@@ -13,8 +13,8 @@ const currentYear = new Date().getFullYear();
           Imprenta en Madrid con más de 20 años de experiencia. Papel, tinta y oficio al servicio de tu marca.
         </p>
         <address class="footer-address">
-          <p>{siteConfig.address.street}</p>
-          <p>{siteConfig.address.postalCode} {siteConfig.address.city}, {siteConfig.address.country}</p>
+          <!-- <p>{siteConfig.address.street}</p> -->
+          <!-- <p>{siteConfig.address.postalCode} {siteConfig.address.city}, {siteConfig.address.country}</p> -->
           <p class="footer-contact-line">
             <a href={`tel:${siteConfig.telephone.replace(/\s+/g, '')}`}>{siteConfig.telephone}</a>
             <span aria-hidden="true">·</span>
@@ -61,10 +61,10 @@ const currentYear = new Date().getFullYear();
 
 <style>
   .site-footer {
-    background: #1c211e;
+    background: #1b4334;
     color: #e8e6e0;
     padding: clamp(2rem, 4vw, 3rem) 0 1.5rem;
-    border-top: 1px solid #2a2e2a;
+    border-top: 1px solid #1b4334;
   }
 
   .footer-grid {
