@@ -12,15 +12,20 @@ const { title, description, href, icon } = Astro.props;
   <a href={href} class="service-media" aria-label={title} tabindex="-1">
     <div class="service-media-inner">
       <span class="service-media-icon" aria-hidden="true">{icon ?? '◨'}</span>
-      <span class="service-media-note">Imagen — {title}</span>
+      <div class="service-media-swatch" aria-hidden="true">
+        <span style="background:#00A9E0"></span><span style="background:#E4007C"></span><span style="background:#FFED00"></span><span style="background:#0F1412"></span>
+      </div>
     </div>
+    <!-- registro marks -->
+    <span class="reg reg--tl" aria-hidden="true"></span>
+    <span class="reg reg--tr" aria-hidden="true"></span>
   </a>
   <div class="service-body">
     <h3 class="service-title"><a href={href}>{title}</a></h3>
     <p class="service-description">{description}</p>
     <a href={href} class="service-link">
       Ver detalles
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
   </div>
 </article>
@@ -31,157 +36,82 @@ const { title, description, href, icon } = Astro.props;
     flex-direction: column;
     height: 100%;
     background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 13px 15px 14px 13px;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-card);
     overflow: hidden;
     transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
     position: relative;
   }
-
-  .service-card::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    width: 12px;
-    height: 12px;
-    border-top: 1px solid rgba(29,33,30,0.12);
-    border-right: 1px solid rgba(29,33,30,0.12);
-    opacity: 0.0;
-    pointer-events: none;
-  }
-
   .service-card:hover {
-    border-color: var(--color-border-strong);
-    box-shadow: var(--shadow-paper);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .service-card:hover {
-      transform: translateY(-1px) rotate(0.12deg);
-    }
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 24px rgba(15,20,18,0.08);
+    transform: translateY(-2px);
   }
 
   .service-media {
     display: block;
     aspect-ratio: 16 / 10.2;
     background:
-      radial-gradient(ellipse 280px 120px at 18% 18%, rgba(255,255,255,0.55), transparent 58%),
-      linear-gradient(180deg, #eef1eb 0%, #e6ebe3 100%);
-    border-bottom: 1px solid var(--color-border);
+      radial-gradient(ellipse 280px 120px at 18% 18%, rgba(255,255,255,0.7), transparent 58%),
+      radial-gradient(ellipse 180px 100px at 92% 88%, rgba(255,59,31,0.06), transparent 60%),
+      linear-gradient(180deg, #FFFDF5 0%, #F2EAD6 100%);
+    border-bottom: 1.5px solid var(--color-border);
     position: relative;
     overflow: hidden;
     text-decoration: none;
   }
-
   .service-media::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.05;
+    content: ''; position: absolute; inset: 0; opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
     pointer-events: none;
   }
+  .reg {
+    position: absolute; width: 12px; height: 12px; opacity: 0.5;
+    border-color: rgba(15,20,18,0.25);
+  }
+  .reg--tl { top: 8px; left: 8px; border-top: 1px solid; border-left: 1px solid; }
+  .reg--tr { top: 8px; right: 8px; border-top: 1px solid; border-right: 1px solid; }
 
   .service-media-inner {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    padding: var(--space-md);
-    color: var(--color-primary);
-    text-align: center;
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.7rem; padding: var(--space-md); text-align: center;
   }
-
   .service-media-icon {
-    width: 52px;
-    height: 52px;
-    display: grid;
-    place-items: center;
-    background: rgba(255, 255, 255, 0.78);
-    border: 1px solid rgba(29, 33, 30, 0.06);
-    border-radius: 12px;
-    font-size: 1.35rem;
-    box-shadow: 0 2px 8px rgba(29, 33, 30, 0.06);
+    width: 54px; height: 54px; display: grid; place-items: center;
+    background: #fff; border: 1.5px solid rgba(15,20,18,0.06);
+    border-radius: 14px; font-size: 1.4rem;
+    box-shadow: 0 2px 10px rgba(15,20,18,0.07);
+    transform: rotate(-1deg);
   }
-
-  .service-media-note {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    opacity: 0.85;
-  }
+  .service-media-swatch { display: flex; gap: 4px; height: 5px; width: 56px; border-radius: 999px; overflow: hidden; opacity: 0.9; }
+  .service-media-swatch span { flex: 1; }
 
   .service-body {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+    display: flex; flex-direction: column; flex: 1;
     padding: var(--space-lg) var(--space-lg) calc(var(--space-lg) - 2px);
     gap: var(--space-sm);
   }
-
   .service-title {
     font-family: var(--font-sans);
-    font-size: 1.05rem;
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.015em;
-    margin: 0;
+    font-size: 1.06rem; font-weight: 750; line-height: 1.25; letter-spacing: -0.02em; margin: 0;
   }
-
-  .service-title a {
-    color: var(--color-text);
-    text-decoration: none;
-  }
-
-  .service-title a:hover {
-    color: var(--color-primary);
-  }
-
-  .service-title a:focus-visible {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
-
+  .service-title a { color: var(--color-text); text-decoration: none; }
+  .service-title a:hover { color: var(--color-accent); }
+  .service-title a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; border-radius: 2px; }
   .service-description {
-    flex: 1;
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin: 0;
+    flex: 1; color: var(--color-text-muted); font-size: 0.91rem; line-height: 1.6; margin: 0;
+    font-family: var(--font-sans);
   }
-
   .service-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    margin-top: 0.25rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--color-primary);
-    text-decoration: none;
-    align-self: flex-start;
-    padding: 0.15rem 0;
-    border-bottom: 1px solid transparent;
-    transition: gap var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    margin-top: 0.25rem; font-size: 0.84rem; font-weight: 700; letter-spacing: -0.01em;
+    color: var(--color-text); text-decoration: none; align-self: flex-start;
+    padding: 0.3rem 0.7rem; border-radius: 999px;
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface);
+    transition: gap var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   }
-
-  .service-link:hover {
-    color: var(--color-primary-hover);
-    border-bottom-color: currentColor;
-    gap: 0.5rem;
-  }
-
-  .service-link:focus-visible {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
+  .service-link:hover { color: #fff; background: var(--color-accent); border-color: var(--color-accent); gap: 0.5rem; }
+  .service-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 </style>
